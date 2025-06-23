@@ -5,7 +5,7 @@ description = "Default template for PDM package"
 authors = [
     {name = "Elio Nakhle", email = "elio.nakhle@agile-robots.com"},
 ]
-dependencies = ["faster-whisper>=1.1.1"]
+dependencies = ["faster-whisper>=1.1.1", "typer>=0.16.0"]
 requires-python = ">=3.10"
 readme = "README.md"
 license = {text = "MIT"}
