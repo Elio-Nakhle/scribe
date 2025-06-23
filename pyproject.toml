@@ -1,0 +1,19 @@
+[project]
+name = "scribe"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Elio Nakhle", email = "elio.nakhle@agile-robots.com"},
+]
+dependencies = ["faster-whisper>=1.1.1"]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
