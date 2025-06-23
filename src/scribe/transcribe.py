@@ -1,4 +1,5 @@
 import time
+
 from faster_whisper import WhisperModel
 
 
