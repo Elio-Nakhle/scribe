@@ -8,7 +8,8 @@ from scribe.transcribe import transcribe
 
 MEETING_NAME = f"meeting-{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
 MEETING_DIR = pathlib.Path(__file__).parent.parent.parent / "records" / MEETING_NAME
-MEETING_RECORD = MEETING_DIR / f"{MEETING_NAME}.wav"
+MEETING_RECORD = str(MEETING_DIR / MEETING_NAME) + ".wav"
+COMPRESSED_MEETING_RECORD = str(MEETING_DIR / MEETING_NAME) + ".mp3"
 
 app = typer.Typer()
 
@@ -19,9 +20,8 @@ def record():
 
 
 def convert():
-    os.system(
-        f"ffmpeg -i {MEETING_RECORD} -acodec mp3 {MEETING_RECORD.with_suffix('.mp3')}"
-    )
+    os.system(f"ffmpeg -i {MEETING_RECORD} -acodec mp3 {COMPRESSED_MEETING_RECORD}")
+    os.remove(MEETING_RECORD)
 
 
 @app.command()
@@ -32,7 +32,7 @@ def meet():
     """
     record()
     convert()
-    transcribe(MEETING_RECORD, MEETING_DIR / MEETING_NAME)
+    transcribe(COMPRESSED_MEETING_RECORD, str(MEETING_DIR / MEETING_NAME))
 
 
 if __name__ == "__main__":
