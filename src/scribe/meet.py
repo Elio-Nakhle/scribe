@@ -16,7 +16,7 @@ app = typer.Typer()
 
 def record():
     os.system(f"mkdir -p {MEETING_DIR}")
-    os.system(f"arecord {MEETING_RECORD}")
+    os.system(f"arecord --format=cd {MEETING_RECORD}")
 
 
 def convert():
