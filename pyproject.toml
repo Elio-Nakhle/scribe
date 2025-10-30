@@ -3,8 +3,8 @@ name = "scribe"
 version = "0.1.0"
 description = "Default template for PDM package"
 authors = [{ name = "Elio Nakhle", email = "elio.nakhle@agile-robots.com" }]
-dependencies = ["faster-whisper>=1.1.1", "typer>=0.16.0"]
-requires-python = ">=3.10"
+dependencies = ["faster-whisper>=1.1.1", "typer>=0.16.0", "sox>=1.4.0"]
+requires-python = ">=3.10,<3.14"
 readme = "README.md"
 license = { text = "MIT" }
 
@@ -18,3 +18,4 @@ distribution = true
 
 [tool.pdm.scripts]
 meet = "python src/scribe/meet.py"
+record = "python -m scribe.audio_utils"

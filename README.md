@@ -1,13 +1,38 @@
 # scribe
 
-This is a utility to record and transcribe meetings
+Utility to record and transcribe meetings. Uses Sox for cross-platform audio recording.
 
-## How to run
+## Installation
 
-You first need to install dependencies with `pdm install`
+```bash
+# Install Python dependencies
+pdm install
 
-Next you can run `pdm run meet`
+# Install Sox (required for audio recording)
+# macOS:
+brew install sox
+
+# Linux (Ubuntu/Debian):
+sudo apt install sox
+
+# Linux (RedHat/CentOS):
+sudo yum install sox
+```
+
+## Usage
+
+```bash
+# Record and transcribe a meeting
+pdm run meet
+
+# Record audio only
+pdm run record my-recording                    # With timestamp
+pdm run record my-recording --no-timestamp     # Without timestamp
+```
 
 ## Output
 
-A new folder should be created under a `records/` folder with the transcription converted to `.mp3` and the transcription as `.txt` with timestamps
+Creates a folder in `records/` with:
+
+- Audio file (WAV → MP3)
+- Transcription with timestamps (TXT)

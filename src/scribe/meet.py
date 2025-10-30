@@ -5,6 +5,7 @@ import pathlib
 import typer
 
 from scribe.transcribe import transcribe
+from scribe.audio_utils import record_audio
 
 MEETING_NAME = f"meeting-{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
 MEETING_DIR = pathlib.Path(__file__).parent.parent.parent / "records" / MEETING_NAME
@@ -15,8 +16,8 @@ app = typer.Typer()
 
 
 def record():
-    os.system(f"mkdir -p {MEETING_DIR}")
-    os.system(f"arecord --format=cd {MEETING_RECORD}")
+    os.makedirs(MEETING_DIR, exist_ok=True)
+    record_audio(MEETING_RECORD)
 
 
 def convert():
