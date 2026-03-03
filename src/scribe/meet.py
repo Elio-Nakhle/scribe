@@ -4,7 +4,7 @@ import pathlib
 
 import typer
 
-from scribe.transcribe import transcribe
+from scribe.pipeline import run_pipeline
 from scribe.audio_utils import record_audio
 
 MEETING_NAME = f"meeting-{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
@@ -37,17 +37,34 @@ def cleanup():
 
 
 @app.command()
-def meet():
+def meet(
+    diarization: bool = typer.Option(
+        False,
+        "--diarization",
+        help="Enable speaker diarization (use HF_TOKEN for pyannote, or Resemblyzer when unset).",
+    ),
+    sentiment: bool = typer.Option(
+        False,
+        "--sentiment",
+        help="Enable per-segment sentiment analysis.",
+    ),
+):
     """
-    Main function to handle the meeting workflow.
-    It orchestrates the recording, converting, and transcribing of the meeting audio.
+    Record and transcribe a meeting. Optionally enable diarization and/or sentiment with flags.
+    Writes MP3 and timestamped TXT to records/meeting-YYYY-MM-DD_HH-MM-SS/.
     """
     try:
         record()
-        transcribe(MEETING_RECORD, str(MEETING_DIR / MEETING_NAME))
+        run_pipeline(
+            MEETING_RECORD,
+            str(MEETING_DIR / MEETING_NAME),
+            diarization=diarization,
+            sentiment=sentiment,
+        )
         convert()
     except Exception:
         cleanup()
+        raise
 
 
 if __name__ == "__main__":
